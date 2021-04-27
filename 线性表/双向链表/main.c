@@ -165,7 +165,39 @@ STATUS alterElementByValue(struct ListHead* head,DATA_TYPE value,DATA_TYPE e)
 
 STATUS deleteElement(struct ListHead* head,int index)
 {
+        if(index < 1 || index > head->lengh)
+    {
+        return ERROR;
+    }
+    struct Node* p = head->next;
+    struct Node* q;
+    if(index == 1)
+    {
+        q = head->next;
+        head->next = q->next;
+        free(q);
+        head->lengh--;
+        return OK;
+    }
 
+    int i = 1;
+    while(i < index)
+    {
+        q = p;
+        p = p->next;
+        i++;
+    }
+    if(i == head->lengh)
+    {
+        q->next = NULL;
+        free(p);
+        head->lengh--;
+        return OK;
+    }
+    q->next = p->next;
+    free(p);
+    head->lengh--;
+    return OK;
 }
 
 void clearList(struct ListHead* head)
@@ -201,8 +233,16 @@ int main()
     insertElement(head,2,3);
     insertElement(head,2,4);
     insertElement(head,2,5);
+    // alterElementByValue(head,1,10);
+    // alterElementByValue(head,3,30);
+    // alterElementByValue(head,2,20);
+    // alterElementByValue(head,2,20);
+    alterElementByIndex(head,1,20);
+    alterElementByIndex(head,3,40);
+    alterElementByIndex(head,5,10);
     printListHead(head);
     printf("-------------------------------\n");
+    // clearList(head);
     printListTail(head);
     return 0;
 }
