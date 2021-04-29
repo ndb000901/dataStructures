@@ -181,6 +181,7 @@ STATUS deleteElementByIndex(struct ListHead* head,int index)
     if(i == head->lengh)
     {
         q->next = NULL;
+        head->tail = q;
         free(p);
         head->lengh--;
         return OK;
